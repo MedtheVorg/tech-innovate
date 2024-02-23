@@ -1,25 +1,31 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-    Sheet,
-    SheetClose,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { MenuIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ListItem from './ListItem';
 
 export function SideMenu({}) {
     const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        window.addEventListener('resize', (event) => {
+            if (window.innerWidth > 640) {
+                console.log('close it');
+
+                setIsOpen(false);
+            }
+        });
+
+        return () => {
+            window.removeEventListener('resize', (event) => {
+                if (window.innerWidth > 640) {
+                    setIsOpen(false);
+                }
+            });
+        };
+    }, []);
     return (
-        <div>
+        <div className='sm:hidden'>
             <MenuIcon
                 className='cursor-pointer'
                 onClick={() => setIsOpen(true)}
@@ -28,9 +34,9 @@ export function SideMenu({}) {
                 open={isOpen}
                 onOpenChange={setIsOpen}
             >
-                <SheetContent className='bg-white bg-opacity-5'>
+                <SheetContent className='bg-white bg-opacity-5 '>
                     <nav className=''>
-                        <ul className='flex gap-x-8 flex-col mt-8 gap-y-6'>
+                        <ul className='flex gap-x-4 flex-col mt-8 gap-y-6'>
                             {[
                                 'home',
                                 'services',
@@ -41,6 +47,8 @@ export function SideMenu({}) {
                                 <ListItem
                                     value={route}
                                     key={route}
+                                    onClick={() => setIsOpen(false)}
+                                    className='hover:bg-white hover:bg-opacity-30'
                                 />
                             ))}
                         </ul>

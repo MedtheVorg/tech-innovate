@@ -14,7 +14,7 @@ export default function Home() {
             <Container className='grid grid-cols-1 md:grid-cols-2'>
                 {/* left side */}
                 <div className='p-8 xl:p-0 text-white z-10'>
-                    <h1 className='font-bold text-6xl text-balance '>
+                    <h1 className='font-bold text-3xl md:text-5xl lg:text-6xl text-balance '>
                         Empowering Innovation with Tech Excellence
                     </h1>
                     <p className='text-neutral-200 mt-8'>
